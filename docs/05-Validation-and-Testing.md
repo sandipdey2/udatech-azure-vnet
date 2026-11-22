@@ -23,6 +23,7 @@ Network Watcher could not be enabled because the lab subscription policy (`Enfor
 - Public IP addresses removed from all VMs
 - Private DNS resolution verified from inside a VM and from a second VNet
 - Private endpoint deployed and approved
+<<<<<<< HEAD
 
 ## Cross-VNet DNS
 
@@ -55,12 +56,25 @@ Both VMs are Running. IIS was installed so the TCP/80 health probe succeeds.
 |------|--------|-------------|------|--------|
 | Allowed | Bastion subnet 10.0.4.0/26 | vm-hr | 3389 | Success |
 | Denied | External Internet | vm-hr | 3389 | Timeout |
+=======
+>>>>>>> 81b7b943c3dcd64134dc3d42ef2504c4345a774d
 
-## Commands Used
+## Cross-VNet DNS
 
+<<<<<<< HEAD
 ```bash
 az network nsg rule list -g udacity-project-starter --nsg-name nsg-hr -o table
 nc -zv -w 5 20.186.93.240 3389
 az network private-dns link vnet list -g udacity-project-starter --zone-name udatech.local -o table
 az network lb address-pool show -g udacity-project-starter --lb-name lb-udatech --name be-pool
 ```
+=======
+Private DNS zone `udatech.local` is linked to both `udatech-vnet` and `udatech-vnet2`.  
+Resolution tested from a VM in `udatech-vnet2`:
+
+nslookup vm-hr.udatech.local → 10.0.1.4
+
+nslookup vm-sales.udatech.local → 10.0.2.4
+
+nslookup vm-devops.udatech.local → 10.0.3.4
+>>>>>>> 81b7b943c3dcd64134dc3d42ef2504c4345a774d
