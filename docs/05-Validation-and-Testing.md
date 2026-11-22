@@ -28,3 +28,9 @@ Network Watcher could not be enabled because the lab subscription policy (`Enfor
 
 Private DNS zone `udatech.local` is linked to both `udatech-vnet` and `udatech-vnet2`.  
 Resolution tested from a VM in `udatech-vnet2`:
+
+nslookup vm-hr.udatech.local → 10.0.1.4
+
+nslookup vm-sales.udatech.local → 10.0.2.4
+
+nslookup vm-devops.udatech.local → 10.0.3.4
