@@ -1,0 +1,24 @@
+graph TB
+    subgraph VNet["vnet-udatech (10.0.0.0/16) - eastus2"]
+        subgraph Bastion["AzureBastionSubnet 10.0.4.0/26"]
+            B[Azure Bastion]
+        end
+        subgraph HR["snet-hr 10.0.1.0/24"]
+            HRVM[vm-hr]
+        end
+        subgraph Sales["snet-sales 10.0.2.0/24"]
+            SalesVM[vm-sales]
+        end
+        subgraph DevOps["snet-devops 10.0.3.0/24"]
+            DevOpsVM[vm-devops]
+        end
+        subgraph LB["snet-lb 10.0.5.0/24"]
+            ILB[Internal Load Balancer]
+        end
+    end
+
+    Internet((Internet)) -.->|Blocked| HRVM
+    B -->|RDP 3389| HRVM
+    B -->|RDP 3389| SalesVM
+    B -->|RDP 3389| DevOpsVM
+    ILB --> DevOpsVM
