@@ -78,3 +78,12 @@ nslookup vm-sales.udatech.local → 10.0.2.4
 
 nslookup vm-devops.udatech.local → 10.0.3.4
 >>>>>>> 81b7b943c3dcd64134dc3d42ef2504c4345a774d
+## Cross-VNet DNS (verified)
+Test performed via Run Command on VM `vm-dns-vnet2` (private IP 10.1.1.5) in `udatech-vnet2`.  
+`nslookup vm-hr.udatech.local` returned `10.0.1.4`.
+
+## Load Balancer Health & High Availability
+- NSG rule `Allow-LB-Probe` (priority 150, source AzureLoadBalancer, port 80) placed before Deny-All.
+- Both VMs (10.0.3.4 and 10.0.3.5) are in `be-pool`.
+- Frontend request to 10.0.5.4 returned HTTP 200.
+- Failover test: after deallocating one backend, the frontend still returned HTTP 200, confirming the remaining instance served traffic.
