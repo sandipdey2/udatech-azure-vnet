@@ -40,3 +40,13 @@ az network nsg rule list -g udacity-project-starter --nsg-name nsg-hr -o table
 nc -zv -w 5 20.186.93.240 3389
 az network private-dns link vnet list -g udacity-project-starter --zone-name udatech.local -o table
 az network lb address-pool show -g udacity-project-starter --lb-name lb-udatech --name be-pool
+
+## Cross-VNet DNS (verified)
+Test performed via Run Command on VM `vm-dns-vnet2` (private IP 10.1.1.5) in `udatech-vnet2`.  
+`nslookup vm-hr.udatech.local` returned `10.0.1.4`.
+
+## Load Balancer Health & High Availability
+- NSG rule `Allow-LB-Probe` (priority 150, source AzureLoadBalancer, port 80) placed before Deny-All.
+- Both VMs (10.0.3.4 and 10.0.3.5) are in `be-pool`.
+- Frontend request to 10.0.5.4 returned HTTP 200.
+- Failover test: after deallocating one backend, the frontend still returned HTTP 200, confirming the remaining instance served traffic.
